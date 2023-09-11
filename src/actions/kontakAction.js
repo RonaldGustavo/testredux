@@ -2,8 +2,10 @@ import axios from "axios";
 
 export const GET_lIST_KONTAK = 'GET_LIST_KONTAK'
 
+
 export const getListKontak = ()=> {
     console.log("2. masuk action");
+    
     return(dispatch) => {
     
     //loading

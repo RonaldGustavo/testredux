@@ -19,7 +19,7 @@ function App() {
     <Router>
     <Routes>
       <Route path="/" element={<ListKontak />} />
-      <Route path="/form" element={<NameForm />} />
+      <Route path="/form/:ids" element={<NameForm />} />
  
 
       {/* redirect if random path to last page*/}

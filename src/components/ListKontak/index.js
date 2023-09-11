@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getListKontak } from "../../actions/kontakAction";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 
 const ListKontak = () => {
 
+  const {ids} = useParams()
+
     const navigate = useNavigate()
 
     // const { getListKontakResult, getListKontakLoading, getListKontakError } = useSelector((state) => state.kontakReducer)
-    const { getListKontakResult, getListKontakLoading, getListKontakError } = useSelector((state) =>  state.kontakReducer)
+    const { getListKontakResult, getListKontakLoading, getListKontakError } = useSelector((state) => state.kontakReducer)
 
     // get data dari loginReducer
     const dataEmail = useSelector(state => state.loginReducer.email);
@@ -29,40 +31,40 @@ const ListKontak = () => {
         console.log("1. use effect component did mount");
 
         dispatch(getListKontak())
-        console.log("data form: ",name);
-        console.log("loading is",getListKontakLoading);
+        console.log("data form: ", name);
+        console.log("loading is", getListKontakLoading);
 
     }, [dispatch])
 
 
     return (
         <div>
-<button onClick={()=> {
-    navigate("/form")
-}}>form</button>
+            <button onClick={() => {
+                navigate(`/form/${ids}`)
+            }}>form</button>
 
             {/* menampilkan data loginReducer */}
-            <h4>{dataEmail }</h4>
+            <h4>{dataEmail}</h4>
             <h4>{dataPassword}</h4>
-            <h4>name form: {name    }</h4>
-            <h4>email form: {email    }</h4>
+            <h4>name form: {name}</h4>
+            <h4>email form: {email}</h4>
 
             {getListKontakResult ? (
                 getListKontakResult.map(kontak => {
                     return (
                         <>
 
-                        <p key={kontak.id}><b>Nama: </b> {kontak.name} </p>
-                        <p><b>Address: </b>{kontak.address}</p>
-                        <br />
+                            <p key={kontak.id}><b>Nama: </b> {kontak.name} </p>
+                            <p><b>Address: </b>{kontak.address}</p>
+                            <br />
 
                         </>
-                    
+
                     )
-                }) 
+                })
             ) : getListKontakLoading ? (
-                
-           <p>Loading....</p>
+
+                <p>Loading....</p>
             ) : (
                 <p> {getListKontakError ? getListKontakError : "data kosong"} </p>
 
